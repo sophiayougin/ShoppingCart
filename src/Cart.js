@@ -1,15 +1,14 @@
 import React from 'react';
 import data from './data';
-let total = 0;
 class Cart extends React.Component{
      printingCart =() =>{
         const cart = this.props.cart;
         const cartItems =  data.filter((item) =>{
             return cart.hasOwnProperty(item.productId) && cart[item.productId] > 0
         });
-        cartItems.map((item) =>{
-            total  = total + (item.price)*(cart[item.productId]);
-        })
+        let total = cartItems.reduce((acc,item) =>
+            acc + (item.price)*(cart[item.productId]),0)
+        
         return(
                 <div>
                     <table className='table-class'>
@@ -26,7 +25,7 @@ class Cart extends React.Component{
                         </tr>
                     )}
                     </table>
-                    
+                    <h3 className ='total'>Total: {total}</h3>
                 </div>
                 
         );
@@ -36,7 +35,6 @@ class Cart extends React.Component{
             <div>
                 <h2 className='your-cart'>Your Cart</h2>
                 {this.printingCart()}
-                <h3 className ='total'>Total: {total}</h3>
             </div>
         )
         
