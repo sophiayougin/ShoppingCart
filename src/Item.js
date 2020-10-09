@@ -2,7 +2,6 @@ import React from 'react';
 
 class Item extends React.Component {
   addToCart = ()=>{
-   
     this.props.onQuantityChange(this.props.productId,this.props.quantity - 1);
     this.props.onAddingCart(this.props.productId);
   }
@@ -17,9 +16,9 @@ class Item extends React.Component {
             <hr></hr>
             </div>   
             <div className='button-class'>
-              <button className="cart-button"
+              <button className="addcart-button"
                disabled={this.props.quantity === 0}
-               onClick={this.addToCart}>Add to cart</button>
+               onClick={this.addToCart}>Add to Cart</button>
             </div>
         </div>
       );

@@ -5,7 +5,7 @@ import data from './data';
      render() {
         const quantities = this.props.quantities;
         return(
-            <div>
+            <div className='productlistpage'>
                 {data.map((item) =>
                 <Item 
                     key={item.productId}
@@ -17,7 +17,13 @@ import data from './data';
                     productId={item.productId}
                     />
                 )}
-                <button className='checkout-button' onClick={this.props.onCheckOut}>Checkout</button>
+                <div className='viewcart-class'>
+                    <button className='viewcart-button' 
+                            onClick={this.props.onCheckOut}>
+                            View Cart
+                    </button>
+                </div>
+                
             </div>
         );
      }

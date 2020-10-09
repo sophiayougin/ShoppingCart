@@ -1,7 +1,7 @@
 import React from 'react';
 import data from './data';
 class Cart extends React.Component{
-     printingCart =() =>{
+     printCart =() =>{
         const cart = this.props.cart;
         const cartItems =  data.filter((item) =>{
             return cart.hasOwnProperty(item.productId) && cart[item.productId] > 0
@@ -10,9 +10,9 @@ class Cart extends React.Component{
             acc + (item.price)*(cart[item.productId]),0)
         
         return(
-                <div>
+                <div className='tablediv'>
                     <table className='table-class'>
-                      <tr>
+                      <tr class="table-head">
                         <th>Product</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -21,11 +21,15 @@ class Cart extends React.Component{
                         <tr>
                         <th>{element.product}</th>
                         <th>{cart[element.productId]}</th>
-                        <th>{(element.price)*(cart[element.productId])}</th>
+                        <th>Rs: {(element.price)*(cart[element.productId])}</th>
                         </tr>
                     )}
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        <th className='total'>Total: Rs: {total}</th>  
+                        </tr>
                     </table>
-                    <h3 className ='total'>Total: {total}</h3>
                 </div>
                 
         );
@@ -33,8 +37,7 @@ class Cart extends React.Component{
     render(){
         return (
             <div>
-                <h2 className='your-cart'>Your Cart</h2>
-                {this.printingCart()}
+                {this.printCart()}
             </div>
         )
         

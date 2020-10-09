@@ -9,49 +9,56 @@ class App extends React.Component {
     super(props);
     var quantities = {};
     var cart = {};
-    for(let i = 0;i < data.length;i++){
-      var pro = data[i];
-      quantities[pro.productId] = pro.quantity;
-      cart[pro.productId] = 0;
-    }
+    const listingPage = 'listing_page';
+    data.forEach((item)=>{
+      quantities[item.productId] = item.quantity;
+      cart[item.productId] = 0;
+    });
     this.state ={
       quantities: quantities,
-      cart:cart,
-      page: 'list'
+      cart: cart,
+      page: listingPage
     }
   }
-  quantityChange = (pdtId,quant) =>{
+  quantityChangeHandler = (pdtId,quant) =>{
     const newQ = {...this.state.quantities};
     newQ[pdtId] = quant;
     this.setState({
       quantities: newQ
     });
   }
-  addingToCart = (pdtId) =>{
+  addToCart = (pdtId) =>{
     const newQ = {...this.state.cart};
     newQ[pdtId] = newQ[pdtId] + 1;
     this.setState({
       cart: newQ
     });
   }
-  checkOut = () =>{
+  makeCheckOutPage = () =>{ 
+    const checkOutPage = 'checkout_page';
     this.setState({
-      page: 'checkout'
+      page: checkOutPage
+    });
+  }
+  makeProductListPage = () =>{
+    const listingPage = 'listing_page';
+    this.setState({
+      page: listingPage
     });
   }
   render() {
     return (
       <div>
         <Header/>
-        {this.state.page === 'list'
+        {this.state.page === 'listing_page'
         ?<ProductListPage quantities ={this.state.quantities}
-                           onQuantityChange={this.quantityChange}
-                           onAddingCart={this.addingToCart}
-                           onCheckOut={this.checkOut}/>
-        : <CheckOutPage cart={this.state.cart}/>}
+                           onQuantityChange={this.quantityChangeHandler}
+                           onAddingCart={this.addToCart}
+                           onCheckOut={this.makeCheckOutPage}/>
+        : <CheckOutPage cart={this.state.cart}
+                        onUpdateCart={this.makeProductListPage}/>}
       </div>
     );
   }
 }
-
 export default App;
